@@ -3,11 +3,11 @@ name: Main
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build-windows:
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,47 +30,12 @@ jobs:
           cargo build --all --release --locked
           cd target/release
           strip viceroy
-          tar czf viceroy_${{ steps.tagName.outputs.tag }}_linux-amd64.tar.gz viceroy
+          tar czf viceroy_${{ steps.tagName.outputs.tag }}_win64.tar.gz viceroy
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            target/release/viceroy_${{ steps.tagName.outputs.tag }}_linux-amd64.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  build-mac:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: true
-
-      - name: Install latest Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-apple-darwin
-          default: true
-          override: true
-
-      - name: Extract tag name
-        uses: olegtarasov/get-tag@v2.1
-        id: tagName
-
-      - name: Build and package
-        run: |
-          cargo build --all --release --locked
-          cd target/release
-          strip viceroy
-          tar czf viceroy_${{ steps.tagName.outputs.tag }}_darwin-amd64.tar.gz viceroy
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            target/release/viceroy_${{ steps.tagName.outputs.tag }}_darwin-amd64.tar.gz
+            target/release/viceroy_${{ steps.tagName.outputs.tag }}_win64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
