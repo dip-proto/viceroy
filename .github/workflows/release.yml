@@ -29,8 +29,8 @@ jobs:
         run: |
           cargo build --all --release --locked
           cd target/release
-          strip viceroy
-          tar czf viceroy_${{ steps.tagName.outputs.tag }}_win64.tar.gz viceroy
+          strip viceroy.exe
+          tar czf viceroy_${{ steps.tagName.outputs.tag }}_win64.tar.gz viceroy.exe
 
       - name: Release
         uses: softprops/action-gh-release@v1
