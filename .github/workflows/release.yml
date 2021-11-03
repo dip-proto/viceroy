@@ -14,17 +14,20 @@ jobs:
         arch: [amd64, arm64]
         exclude:
           - os: ubuntu-latest
-            arch: arm64
+            arch: arm64x
           - os: windows-latest
-            arch: arm64          
+            arch: arm64x         
         include:
           - os: ubuntu-latest
             name: linux
+            enable_cross: true
           - os: macos-latest
             name: darwin
+            enable_cross: false
           - os: windows-latest
             name: windows
             extension: .exe
+            enable_cross: false
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -49,12 +52,13 @@ jobs:
         with:
           command: build
           args: --all --locked
-          use-cross: true
+          use-cross: {{ matrix.enable_cross }}
 
       - name: Package
         run: |
           find . -name viceroy -type f -print
           cd target/debug
+          file viceroy${{ matrix.extension }}
           strip viceroy${{ matrix.extension }}
           tar czf viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz viceroy${{ matrix.extension }}
 
