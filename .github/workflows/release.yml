@@ -46,8 +46,9 @@ jobs:
 
       - name: Build
         uses: actions-rs/cargo@v1
-        command: build
-        args: --all --locked
+        with:
+          command: build
+          args: --all --locked
 
       - name: Package
         run: |
