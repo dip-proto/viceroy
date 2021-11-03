@@ -54,7 +54,12 @@ jobs:
       - name: Install cross-compilation toolchain
         if: ${{ matrix.name == 'linux' && matrix.arch == 'arm64' }}
         run: |
-          sudo apt install -f -y gcc-aarch64-linux-gnu                
+          sudo apt install -f -y gcc-aarch64-linux-gnu
+        env:
+          CC: aarch64-linux-gnu-gcc
+          AR: aarch64-linux-gnu-ar
+          LD: aarch64-linux-gnu-ld
+          RUSTFLAGS: -C linker=aarch64-linux-gnu-gcc
 
       - name: Extract tag name
         uses: olegtarasov/get-tag@v2.1
