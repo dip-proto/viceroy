@@ -14,7 +14,7 @@ jobs:
         arch: [amd64, arm64]
         exclude:
           - os: ubuntu-latest
-            arch: arm64
+            arch: xarm64
           - os: windows-latest
             arch: arm64
         include:
@@ -67,8 +67,9 @@ jobs:
           args: --all --locked --target=${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
 
       - name: Package
-        run: |
+        run: |        
           cd target/debug
+          find . -name "viceroy" -type f -print
           file viceroy${{ matrix.extension }}
           strip viceroy${{ matrix.extension }}
           tar czf viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz viceroy${{ matrix.extension }}
