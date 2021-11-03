@@ -14,7 +14,9 @@ jobs:
         arch: [amd64, arm64]
         exclude:
           - os: ubuntu-latest
+            arch: arm64
           - os: windows-latest
+            arch: arm64          
         include:
           - os: ubuntu-latest
             name: linux
@@ -43,8 +45,9 @@ jobs:
         id: tagName
 
       - name: Build
-        run: |
-          cargo build --all --release --locked
+        uses: actions-rs/cargo@v1
+        command: build
+        args: --all --locked
 
       - name: Package
         run: |
