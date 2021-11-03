@@ -51,7 +51,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --all --locked
+          args: --all --locked --target=${{ matrix.rust-target }}
           use-cross: {{ matrix.enable_cross }}
 
       - name: Package
