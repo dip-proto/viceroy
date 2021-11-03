@@ -52,7 +52,7 @@ jobs:
           override: true
       
       - name: Install cross-compilation toolchain
-        if: ${{ matrix.os == 'linux' && matrix.arch == 'arm64' }}        
+        if: ${{ matrix.name == 'linux' && matrix.arch == 'arm64' }}
         run: |
           sudo apt install -f -y gcc-aarch64-linux-gnu                
 
