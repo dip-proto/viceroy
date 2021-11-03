@@ -54,7 +54,7 @@ jobs:
       - name: Package
         run: |
           find . -name viceroy -type f -print
-          cd target/release
+          cd target/debug
           strip viceroy${{ matrix.extension }}
           tar czf viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz viceroy${{ matrix.extension }}
 
@@ -62,6 +62,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            target/release/viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz
+            target/debug/viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
