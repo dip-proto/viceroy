@@ -50,6 +50,11 @@ jobs:
           target: ${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
           default: true
           override: true
+      
+      - name: Install cross-compilation toolchain
+        if: ${{ matrix.os == 'linux' && matrix.arch == 'arm64' }}        
+        run: |
+          sudo apt install -f -y gcc-aarch64-linux-gnu                
 
       - name: Extract tag name
         uses: olegtarasov/get-tag@v2.1
