@@ -31,12 +31,11 @@ jobs:
             rust_abi: pc-windows-gnu
             extension: .exe
             enable_cross: false
-        include:
           - arch: arm64
             rust_arch: aarch64
           - arch: amd64
             rust_arch: x86_64
-        include:
+
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
