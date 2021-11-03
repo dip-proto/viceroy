@@ -55,22 +55,19 @@ jobs:
         if: ${{ matrix.name == 'linux' && matrix.arch == 'arm64' }}
         run: |
           sudo apt install -f -y gcc-aarch64-linux-gnu
-        env:
-          CC: aarch64-linux-gnu-gcc
-          AR: aarch64-linux-gnu-ar
-          LD: aarch64-linux-gnu-ld
-          RUSTFLAGS: -C linker=aarch64-linux-gnu-gcc
+          echo CC=aarch64-linux-gnu-gcc >> $GITHUB_ENV
+          echo RUSTFLAGS='-C linker=aarch64-linux-gnu-gcc' >> $GITHUB_ENV
 
       - name: Extract tag name
         uses: olegtarasov/get-tag@v2.1
-        id: tagName
+        id: tagName      
 
       - name: Build
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --all --locked --target=${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
-
+          
       - name: Package
         run: |        
           cd target/debug
