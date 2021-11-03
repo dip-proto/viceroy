@@ -28,7 +28,7 @@ jobs:
             enable_cross: false
           - os: windows-latest
             name: windows
-            rust_abi: pc-windows-gnu
+            rust_abi: pc-windows-msvc
             extension: .exe
             enable_cross: false
           - arch: arm64
