@@ -21,13 +21,22 @@ jobs:
           - os: ubuntu-latest
             name: linux
             enable_cross: true
+            rust_abi: unknown-linux-gnu
           - os: macos-latest
             name: darwin
+            rust_abi: apple-darwin
             enable_cross: false
           - os: windows-latest
             name: windows
+            rust_abi: pc-windows-gnu
             extension: .exe
             enable_cross: false
+        include:
+          - arch: arm64
+            rust_arch: aarch64
+          - arch: amd64
+            rust_arch: x86_64
+        include:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -39,7 +48,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.rust-toolchain }}
-          target: ${{ matrix.rust-target }}
+          target: ${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
           default: true
           override: true
 
@@ -51,7 +60,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --all --locked --target=${{ matrix.rust-target }}
+          args: --all --locked --target=${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
           use-cross: ${{ matrix.enable_cross }}
 
       - name: Package
