@@ -70,7 +70,7 @@ jobs:
           
       - name: Package
         run: |        
-          cd target/debug
+          cd target
           find . -name "viceroy" -type f -print
           file viceroy${{ matrix.extension }}
           strip viceroy${{ matrix.extension }}
