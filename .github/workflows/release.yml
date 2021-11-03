@@ -53,6 +53,7 @@ jobs:
 
       - name: Package
         run: |
+          find . -name viceroy -type f -print
           cd target/release
           strip viceroy${{ matrix.extension }}
           tar czf viceroy_${{ steps.tagName.outputs.tag }}_${{ matrix.name }}-${{ matrix.arch }}.tar.gz viceroy${{ matrix.extension }}
