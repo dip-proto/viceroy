@@ -60,11 +60,9 @@ jobs:
         with:
           command: build
           args: --all --locked --target=${{ matrix.rust_arch }}-${{ matrix.rust_abi }}
-          use-cross: ${{ matrix.enable_cross }}
 
       - name: Package
         run: |
-          find . -name viceroy -type f -print
           cd target/debug
           file viceroy${{ matrix.extension }}
           strip viceroy${{ matrix.extension }}
