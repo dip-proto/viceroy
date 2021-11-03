@@ -16,7 +16,7 @@ jobs:
           - os: ubuntu-latest
             arch: arm64x
           - os: windows-latest
-            arch: arm64x         
+            arch: arm64
         include:
           - os: ubuntu-latest
             name: linux
@@ -28,7 +28,7 @@ jobs:
             enable_cross: false
           - os: windows-latest
             name: windows
-            rust_abi: pc-windows-msvc
+            rust_abi: pc-windows-gnu
             extension: .exe
             enable_cross: false
           - arch: arm64
